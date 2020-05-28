@@ -46,6 +46,16 @@ walletRoutes.route('/update/:id').post((req, res) => {
     });
 });
 
+walletRoutes.route('/delete/:id').delete((req, res) => {
+  Wallet.findByIdAndRemove(req.params.id, function(err, wallet) {
+        if (!wallet){
+          res.status(404).send("data is not found");
+        } else {
+          return res.status(200).send(wallet);
+        }
+
+    });
+});
 
 walletRoutes.route('/existingWallet').get((req, res) => {
   Wallet.find(function(err, wallet) {
